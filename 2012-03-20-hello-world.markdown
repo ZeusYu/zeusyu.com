@@ -6,7 +6,7 @@ meta: true
 comments: true
 tags: GitHub Octopress 
 ---
-标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩，但由于才疏学浅，完全写不来前端代码，看着同事的博客心痒痒。正好，前几天同事开源了他的博客主题，于是，直接拿来用，在这里，谢谢[wǒ_is神仙](http://mrzhang.me/ "wǒ_is神仙")童鞋。  
+标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩，但由于才疏学浅，完全写不来前端代码，只能看着同事的博客心痒痒。正好，前几天同事开源了他的博客主题，于是，直接拿来用，在这里，谢谢[wǒ_is神仙](http://mrzhang.me/ "wǒ_is神仙")童鞋。  
 <!--more-->
 这边搭建的版本是基于[wǒ_is神仙](http://mrzhang.me/ "wǒ_is神仙")童鞋[Fork的Octopress](https://github.com/jsw0528/octopress/tree/mrzhang_me/)，与原始版本的的区别如下：  
 
