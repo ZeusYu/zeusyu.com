@@ -1,23 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://ZeusYu.github.com/zeusyu/blog/hello-world.html</loc>
+        <loc>http://ZeusYu.github.com/blog/hello-world.html</loc>
         <lastmod>2012-03-22T22:57:17+08:00</lastmod>
     </url>
     <url>
-        <loc>http://ZeusYu.github.com/zeusyu/blog/little-change.html</loc>
+        <loc>http://ZeusYu.github.com/blog/little-change.html</loc>
         <lastmod>2012-03-22T23:02:25+08:00</lastmod>
     </url>
     <url>
-        <loc>http://ZeusYu.github.com/zeusyu/404.html</loc>
+        <loc>http://ZeusYu.github.com/404.html</loc>
         <lastmod>2012-03-22T22:54:20+08:00</lastmod>
     </url>
     <url>
-        <loc>http://ZeusYu.github.com/zeusyu/blog/archives/</loc>
+        <loc>http://ZeusYu.github.com/blog/archives/</loc>
         <lastmod>2012-03-22T23:02:25+08:00</lastmod>
     </url>
     <url>
-        <loc>http://ZeusYu.github.com/zeusyu/</loc>
+        <loc>http://ZeusYu.github.com/</loc>
         <lastmod>2012-03-22T23:02:25+08:00</lastmod>
     </url>
 </urlset>
