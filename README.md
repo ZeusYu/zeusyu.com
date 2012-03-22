@@ -1,5 +1,5 @@
 #Theme created by [wǒ_is神仙](http://mrzhang.me/)
-## Theme All the notes are [MIT](http://www.opensource.org/licenses/mit-license.php) Licensed.
+#Theme All the notes are [MIT](http://www.opensource.org/licenses/mit-license.php) Licensed.
 
 
 ##这是他的玉照，大家去关注啊
