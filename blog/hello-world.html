@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>ZeusYu的秘密基地</title>
+  <title>像黑客一样写博客 - ZeusYu的秘密基地</title>
   
   <meta name="description" content="像黑客一样写博客 2012-03-20 Tue Tags: GitHub, Octopress 标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩， &hellip;" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,15 +38,12 @@ html,body{height:100%;overflow:hidden}
 <header class="my-nickname"><em title="做测试出身，热爱互联网，什么都想学一点，身边一群前端后台好基友……">ZeusYu</em></header>
 
 <section class="main-wrap clearfix">
-  
-  
-  
-    <article>
-      
+  <article role="article">
+    
 
 <header>
   
-    <h1 class="entry-title"><a href="/blog/hello-world.html">像黑客一样写博客</a></h1>
+    <h1 class="entry-title">像黑客一样写博客</h1>
   
   
     <p class="meta">
@@ -86,21 +83,83 @@ html,body{height:100%;overflow:hidden}
 
   <div class="entry-content typo"><p>标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩，但由于才疏学浅，完全写不来前端代码，只能看着同事的博客心痒痒。正好，前几天同事开源了他的博客主题，于是，直接拿来用，在这里，谢谢<a href="http://mrzhang.me/" title="wǒ_is神仙">wǒ_is神仙</a>童鞋。</p>
 
+<!--more-->
+
+
+<p>这边搭建的版本是基于<a href="http://mrzhang.me/" title="wǒ_is神仙">wǒ_is神仙</a>童鞋<a href="https://github.com/jsw0528/octopress/tree/mrzhang_me/">Fork的Octopress</a>，与原始版本的的区别如下：</p>
+
+<ol>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/.rvmrc">.Rvmrc</a><br/>
+神仙同学用的是Ruby1.9.3，Octopress最低要求1.9.2</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/Gemfile">Gemfile</a><br/>
+源改成了ruby.taobao.org的，去掉了部分gem的版本号限制</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/Rakefile">Rakefile</a><br/>
+用haml替换了markdown，修改了时区，降低主题对custom目录的依赖</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/_config.yml">_config.yml</a><br/>
+定制化配置信息，日期格式、永久链接、微博等等</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/plugins/sh_js.rb">Plugins/sh_js.rb</a><br/>
+代码高亮插件</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/plugins/tag_generator.rb">Plugins/tag_generator.rb</a><br/>
+支持中文的Tag插件</p></li>
+<li><p><a href="https://github.com/jsw0528/octopress/blob/mrzhang_me/.themes/blog/">.Themes/blog/</a><br/>
+神仙同学的博客主题</p></li>
+</ol>
+
+
+<p>但是，处于我本地的一些情况和个人使用习惯还是对它做了点改动，</p>
+
+<p>在.rvmrc文件中修改了ruby版本</p>
+
+<p>rvm use 1.9.2</p>
+
+<p>在Rakefile中换回了markdown</p>
+
+<p>new_post_ext = &#8220;markdown&#8221;<br/>
+new_page_ext = &#8220;markdown&#8221;<br/>
+（咦，怎么有种绕弯子的感觉……）</p>
+
+<p>安装、部署博客还是比较简单的，无非是先用git把神仙同学的代码迁到本地，修修改改之后放到github上，绑个域名就OK了。这方面，<a href="http://mrzhang.me/blog/blog-equals-github-plus-octopress.html">wǒ_is神仙的博客</a> 上已经有比较详细的介绍了，这里我也不再摘抄了。<br/>
+但是-作为一个老土的windows用户，在本地运行博客的过程中我还是遇到了不少的问题。</p>
+
+<ol>
+<li><p><code>bundle install</code> 失败<br/>
+这里的问题主要是由于我对Octorpress的不了解造成的因为Octorpess有一个gem是需要从github上迁下来的，而我本地没有相关的工具支持。通过在本地安装配置git客户端，这个问题得到了解决</p></li>
+<li><p><code>rake new_post</code>后<code>rake generate</code> 失败<br/>
+这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加<br/>
+LANG=zh_CN.UTF-8<br/>
+LC=zh_CN.UTF-8<br/>
+再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。</p></li>
+</ol>
+
+
+<p>（我在网上查找过有关Octorpress的一些材料，据说在windows下还有许许多多的问题，不过目前我还没有碰到其他比较恶心的毛病，如果有的话，到时候继续想办法搞定吧）
+好了，新博客搭好了，我也算迈入“黑客”的行列了吧，嗯，要开始认真地写些东西了。</p>
 </div>
-  
-  
-    <footer class="align-r">
-      <a href="/blog/hello-world.html#ContinueReading">继续阅读 &rarr;</a>
+
+
+    <footer>
+      <p class="meta neighbor clearfix">
+        
+        
+      </p>
     </footer>
+  </article>
   
-
-
-    </article>
   
-
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name: "zeusyu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+  <!-- Duoshuo Comment END -->
   
 </section>
-
 
 <footer class="footer">
   &copy;2012 ZeusYu
