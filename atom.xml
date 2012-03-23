@@ -22,16 +22,16 @@
 
 <ol>
 <li>左侧增加了google+的链接图标</li>
-<li>用<a href="http://duoshuo.com/">多说</a>取代<a href="http://disqus.com">disqus</a>作为博客的评论系统</li>
+<li>用<a href="http://duoshuo.com/">多说</a>取代<a href="http://disqus.com">Disqus</a>作为博客的评论系统</li>
 <li>正式把域名<a href="http://zeusyu.com," title="zeusyu.com">ZeusYu.com</a>指了过来。</li>
 </ol>
 
 
 <p>增加图标本来很容易，根据模板的写法，在<code>\.themes\blog\source\_includes\social-links.html</code>和<code>_config.yml</code>里增加对应的代码，但麻烦在于为了保持图标的一致性，我得搞一个相同风格的svg文件，在网上遍寻不到的情况下，只好硬着头皮搜索了一下AI的简单用法，自己画了一个，勉强凑上，刚把图放上去的时候，图标的位置有些诡异，在<code>\.themes\blog\sass\screen.scss</code>里增加相关的样式以后才正常，以后要继续增加其他图标，如法炮制即可。</p>
 
-<p>至于更换评论系统，完全是因为<a href="http://smalloranges.net">九间</a>童鞋的建议，毕竟我们能不能登录<a href="http://disqus.com">disqus</a>开始评论，完全要看方校长的G.F.W心情如何。虽然<a href="http://duoshuo.com/">多说</a>也存在这一些小毛病（修改个人资料有点问题、彻底删除评论没反应，不知道是不是偶然，过几天再看看），但至少主要功能还算正常，先这样吧。</p>
+<p>至于更换评论系统，完全是因为<a href="http://smalloranges.net">九间</a>童鞋的建议，毕竟我们能不能登录<a href="http://disqus.com">Disqus</a>开始评论，完全要看方校长的G.F.W心情如何。虽然<a href="http://duoshuo.com/">多说</a>也存在这一些小毛病（修改个人资料有点问题、彻底删除评论没反应，不知道是不是偶然，过几天再看看），但至少主要功能还算正常，先这样吧。</p>
 
-<p><a href="http://zeusyu.com%EF%BC%8C" title="zeusyu.com">ZeusY.com</a>指过来以后，原先在<a href="http://tumblr.com">Tumbler</a>上的博客就只能用二级域名<a href="http://zeusyu.tumblr.com/">ZeusYu.tumbler.com</a>了,上面难得有几篇对自己之前工作有些帮助的东西也懒得搬过来了，以后看着更新吧~</p>
+<p><a href="http://zeusyu.com%EF%BC%8C" title="zeusyu.com">ZeusY.com</a>指过来以后，原先在<a href="http://tumblr.com">Tumblr</a>上的博客就只能用二级域名<a href="http://zeusyu.tumblr.com/">ZeusYu.tumblr.com</a>了,上面难得有几篇对自己之前工作有些帮助的东西也懒得搬过来了，以后看着更新吧~</p>
 ]]></content>
   </entry>
   
