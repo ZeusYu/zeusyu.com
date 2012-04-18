@@ -14,6 +14,55 @@
 
   
   <entry>
+    <title type="html"><![CDATA[mac下ruby环境搭建]]></title>
+    <link href="http://ZeusYu.github.com/zeusyu/blog/change-computer.html"/>
+    <updated>2012-04-18T21:47:00+08:00</updated>
+    <id>http://ZeusYu.github.com/zeusyu/blog/change-computer</id>
+    <content type="html"><![CDATA[<p>前一阵子换了新电脑，一直在忙其他的事情，再加上贪玩打了一遍《质量效应3》，把程序方面的学习给落下了。这会儿稍稍空点了，还是继续上路吧。
+换了电脑以后，之前熟悉的windows不见了，遇上了据说很方便的mac，什么都得重头搞起，第一件事就是架环境。听说用rvm安装ruby很方便，于是搜了个教程跟着做。</p>
+
+<!--more-->
+
+
+<h2>1.安装git</h2>
+
+<p>前往<a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3&amp;q=&amp;sort=-uploaded&amp;colspec=Filename+Summary+Uploaded+Size+DownloadCount">http://code.google.com/p/git-osx-installer/</a>下载Git，直接搞个dmg包，打开安装即可，整个过程算是最顺利的了。</p>
+
+<h2>2.安装rvm</h2>
+
+<p>在终端里执行<br/>
+<code>bash &lt; &lt;( curl http://rvm.beginrescueend.com/releases/rvm-install-head )</code><br/>
+为了能在只能在终端中使用，照着教程在用户配置文件/Users/username/.profile里加上了<br/>
+<code>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.</code></p>
+
+<h2>3.安装Xcode</h2>
+
+<p>本来根据找到的教程是没有这一步的，但是我用rvm的命令安装ruby时，总是无法编译，看了日志才知道是mac系统太高，lion下没有GCC造成的，原本想单独下一个，但是由于水平太低，对这玩意儿不熟，没敢搞，还是安安稳稳下个xcode吧。<br/>
+这里，我抱着追新的态度，下了xcode 4.3.2，安装后发现还是无法编译，借了个开发者账号下了command line tools 都不管用。唉还是不折腾了，最后还是卸掉了4.3.2的版本，装了xcode4.1，这才算过了编译。</p>
+
+<h2>4.安装ruby</h2>
+
+<p>重启终端后，就开始用rvm装ruby了
+<code>rvm install 1.9.3</code></p>
+
+<p>本来，到这里ruby环境算是搞定了。但是当我进入irb开始试用的时候发现，在终端里输入中文遇到点问题，无论怎么输，就是不能正常显示，不是显示utf码，就是啥都没有。又得拜托谷歌大神了。根据说明得依靠readline。在终端里输入<br/>
+<code>rvm pkg install readline</code><br/>
+<code>rvm reinstall 1.9.3 --with-readline-dir=$rvm_path/usr</code><br/>
+重新编译了一遍，这才解决了这个问题。</p>
+
+<p>余下的设定默认ruby版本<br/>
+<code>rvm use ruby 1.9.2 -default</code><br/>
+更新rubygems<br/>
+<code>rubygems gem update --systme</code><br/>
+修改Rubygems的源<br/>
+<code>gem sources --remove http://rubygems.org/</code><br/>
+<code>gem sources -a http://ruby.taobao.org/</code></p>
+
+<p>好吧，千辛万苦之后算是在mac下配好了基本环境。rails啥的还是放在以后再研究吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[小修改]]></title>
     <link href="http://ZeusYu.github.com/zeusyu/blog/little-change.html"/>
     <updated>2012-03-22T22:29:00+08:00</updated>

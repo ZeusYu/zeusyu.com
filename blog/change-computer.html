@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>ZeusYu的秘密基地</title>
+  <title>mac下ruby环境搭建 - ZeusYu的秘密基地</title>
   
   <meta name="description" content="Mac下ruby环境搭建 2012-04-18 Wed Tags: mac, ruby, rvm 前一阵子换了新电脑，一直在忙其他的事情，再加上贪玩打了一遍《质量效应3》，把程序方面的学习给落下了。这会儿稍稍空点了，还是继续上路吧。
 换了电脑以后，之前熟悉的windows不见了， &hellip;" />
@@ -38,17 +38,13 @@ html,body{height:100%;overflow:hidden}
 
 <header class="my-nickname"><em title="做测试出身，热爱互联网，什么都想学一点，身边一群前端后台好基友……">ZeusYu</em></header>
 
-
-<section class="main-wrap clearfix index">
-
-  
-  
-    <article>
-      
+<section class="main-wrap clearfix">
+  <article role="article">
+    
 
 <header>
   
-    <h1 class="entry-title"><a href="/blog/change-computer.html">Mac下ruby环境搭建</a></h1>
+    <h1 class="entry-title">Mac下ruby环境搭建</h1>
   
   
     <p class="meta">
@@ -89,143 +85,72 @@ html,body{height:100%;overflow:hidden}
   <div class="entry-content typo"><p>前一阵子换了新电脑，一直在忙其他的事情，再加上贪玩打了一遍《质量效应3》，把程序方面的学习给落下了。这会儿稍稍空点了，还是继续上路吧。
 换了电脑以后，之前熟悉的windows不见了，遇上了据说很方便的mac，什么都得重头搞起，第一件事就是架环境。听说用rvm安装ruby很方便，于是搜了个教程跟着做。</p>
 
+<!--more-->
+
+
+<h2>1.安装git</h2>
+
+<p>前往<a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3&amp;q=&amp;sort=-uploaded&amp;colspec=Filename+Summary+Uploaded+Size+DownloadCount">http://code.google.com/p/git-osx-installer/</a>下载Git，直接搞个dmg包，打开安装即可，整个过程算是最顺利的了。</p>
+
+<h2>2.安装rvm</h2>
+
+<p>在终端里执行<br/>
+<code>bash &lt; &lt;( curl http://rvm.beginrescueend.com/releases/rvm-install-head )</code><br/>
+为了能在只能在终端中使用，照着教程在用户配置文件/Users/username/.profile里加上了<br/>
+<code>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.</code></p>
+
+<h2>3.安装Xcode</h2>
+
+<p>本来根据找到的教程是没有这一步的，但是我用rvm的命令安装ruby时，总是无法编译，看了日志才知道是mac系统太高，lion下没有GCC造成的，原本想单独下一个，但是由于水平太低，对这玩意儿不熟，没敢搞，还是安安稳稳下个xcode吧。<br/>
+这里，我抱着追新的态度，下了xcode 4.3.2，安装后发现还是无法编译，借了个开发者账号下了command line tools 都不管用。唉还是不折腾了，最后还是卸掉了4.3.2的版本，装了xcode4.1，这才算过了编译。</p>
+
+<h2>4.安装ruby</h2>
+
+<p>重启终端后，就开始用rvm装ruby了
+<code>rvm install 1.9.3</code></p>
+
+<p>本来，到这里ruby环境算是搞定了。但是当我进入irb开始试用的时候发现，在终端里输入中文遇到点问题，无论怎么输，就是不能正常显示，不是显示utf码，就是啥都没有。又得拜托谷歌大神了。根据说明得依靠readline。在终端里输入<br/>
+<code>rvm pkg install readline</code><br/>
+<code>rvm reinstall 1.9.3 --with-readline-dir=$rvm_path/usr</code><br/>
+重新编译了一遍，这才解决了这个问题。</p>
+
+<p>余下的设定默认ruby版本<br/>
+<code>rvm use ruby 1.9.2 -default</code><br/>
+更新rubygems<br/>
+<code>rubygems gem update --systme</code><br/>
+修改Rubygems的源<br/>
+<code>gem sources --remove http://rubygems.org/</code><br/>
+<code>gem sources -a http://ruby.taobao.org/</code></p>
+
+<p>好吧，千辛万苦之后算是在mac下配好了基本环境。rails啥的还是放在以后再研究吧。</p>
 </div>
-  
-  
-    <footer class="align-r">
-      <a href="/blog/change-computer.html#ContinueReading">继续阅读 &rarr;</a>
+
+
+    <footer>
+      <p class="meta neighbor clearfix">
+        
+          <a href="/blog/little-change.html" class="float-l" title="Previous Post: 小修改">&laquo; 小修改</a>
+        
+        
+      </p>
     </footer>
-  
-
-
-    </article>
+  </article>
   
   
-    <article>
-      
-
-<header>
-  
-    <h1 class="entry-title"><a href="/blog/little-change.html">小修改</a></h1>
-  
-  
-    <p class="meta">
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-22T22:29:00+08:00" pubdate="pubdate" data-updated="true">2012-03-22 Thu</time>
-      
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/octpress/'>octpress</a>, <a href='/blog/tags/blog/'>blog</a>
-  
-</span>
-
-      <span class="share-to-weibo">
-        <a href="javascript:void(0)" onclick="window.open('http://service.weibo.com/share/share.php?appkey=3967567749&amp;ralateUid=1807623870&amp;title=小修改 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/little-change.html', null, 'width=615,height=505,toolbar=0,status=0')" class="sina-weibo" title="分享到新浪微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;appkey=&amp;title=小修改 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/little-change.html', null, 'width=700,height=680,toolbar=0,status=0')" class="tencent-weibo" title="分享到腾讯微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('https://twitter.com/intent/tweet?text=小修改 - http://ZeusYu.github.com/zeusyu/blog/little-change.html', null, 'width=600,height=300,toolbar=0,status=0')" class="twitter" title="分享到Twitter"></a>
-      </span>
-    </p>
-  
-</header>
-
-
-  <div class="entry-content typo"><p>这两天趁着新鲜劲，对博客做了些小小的改动。</p>
-
-<ol>
-<li>左侧增加了google+的链接图标</li>
-<li>用<a href="http://duoshuo.com/">多说</a>取代<a href="http://disqus.com">Disqus</a>作为博客的评论系统</li>
-<li>正式把域名<a href="http://zeusyu.com," title="zeusyu.com">ZeusYu.com</a>指了过来。</li>
-</ol>
-
-
-<p>增加图标本来很容易，根据模板的写法，在<code>\.themes\blog\source\_includes\social-links.html</code>和<code>_config.yml</code>里增加对应的代码，但麻烦在于为了保持图标的一致性，我得搞一个相同风格的svg文件，在网上遍寻不到的情况下，只好硬着头皮搜索了一下AI的简单用法，自己画了一个，勉强凑上，刚把图放上去的时候，图标的位置有些诡异，在<code>\.themes\blog\sass\screen.scss</code>里增加相关的样式以后才正常，以后要继续增加其他图标，如法炮制即可。</p>
-
-<p>至于更换评论系统，完全是因为<a href="http://smalloranges.net">九间</a>童鞋的建议，毕竟我们能不能登录<a href="http://disqus.com">Disqus</a>开始评论，完全要看方校长的G.F.W心情如何。虽然<a href="http://duoshuo.com/">多说</a>也存在这一些小毛病（修改个人资料有点问题、彻底删除评论没反应，不知道是不是偶然，过几天再看看），但至少主要功能还算正常，先这样吧。</p>
-
-<p><a href="http://zeusyu.com%EF%BC%8C" title="zeusyu.com">ZeusY.com</a>指过来以后，原先在<a href="http://tumblr.com">Tumblr</a>上的博客就只能用二级域名<a href="http://zeusyu.tumblr.com/">ZeusYu.tumblr.com</a>了,上面难得有几篇对自己之前工作有些帮助的东西也懒得搬过来了，以后看着更新吧~</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-
-<header>
-  
-    <h1 class="entry-title"><a href="/blog/hello-world.html">像黑客一样写博客</a></h1>
-  
-  
-    <p class="meta">
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-20T21:00:00+08:00" pubdate="pubdate" data-updated="true">2012-03-20 Tue</time>
-      
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/github/'>GitHub</a>, <a href='/blog/tags/octopress/'>Octopress</a>
-  
-</span>
-
-      <span class="share-to-weibo">
-        <a href="javascript:void(0)" onclick="window.open('http://service.weibo.com/share/share.php?appkey=3967567749&amp;ralateUid=1807623870&amp;title=像黑客一样写博客 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/hello-world.html', null, 'width=615,height=505,toolbar=0,status=0')" class="sina-weibo" title="分享到新浪微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;appkey=&amp;title=像黑客一样写博客 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/hello-world.html', null, 'width=700,height=680,toolbar=0,status=0')" class="tencent-weibo" title="分享到腾讯微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('https://twitter.com/intent/tweet?text=像黑客一样写博客 - http://ZeusYu.github.com/zeusyu/blog/hello-world.html', null, 'width=600,height=300,toolbar=0,status=0')" class="twitter" title="分享到Twitter"></a>
-      </span>
-    </p>
-  
-</header>
-
-
-  <div class="entry-content typo"><p>标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩，但由于才疏学浅，完全写不来前端代码，只能看着同事的博客心痒痒。正好，前几天同事开源了他的博客主题，于是，直接拿来用，在这里，谢谢<a href="http://mrzhang.me/" title="wǒ_is神仙">wǒ_is神仙</a>童鞋。</p>
-
-</div>
-  
-  
-    <footer class="align-r">
-      <a href="/blog/hello-world.html#ContinueReading">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name: "zeusyu"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+  <!-- Duoshuo Comment END -->
   
 </section>
-
 
 <footer class="footer">
   &copy;2012 ZeusYu
