@@ -34,13 +34,14 @@ tags: GitHub Octopress
 但是，处于我本地的一些情况和个人使用习惯还是对它做了点改动，
 
 在.rvmrc文件中修改了ruby版本  
-
+```
 rvm use 1.9.2
-
+```
 在Rakefile中换回了markdown  
-
-new_post_ext = "markdown"  
-new_page_ext = "markdown"  
+```
+new_post_ext = "markdown"
+new_page_ext = "markdown"
+```
 （咦，怎么有种绕弯子的感觉……）
 
 安装、部署博客还是比较简单的，无非是先用git把神仙同学的代码迁到本地，修修改改之后放到github上，绑个域名就OK了。这方面，[wǒ_is神仙的博客](http://mrzhang.me/blog/blog-equals-github-plus-octopress.html) 上已经有比较详细的介绍了，这里我也不再摘抄了。  
@@ -51,8 +52,10 @@ new_page_ext = "markdown"
 
 2. `rake new_post`后`rake generate` 失败  
 这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加  
-LANG=zh_CN.UTF-8  
-LC=zh_CN.UTF-8  
+```
+LANG=zh_CN.UTF-8
+LC=zh_CN.UTF-8
+```
 再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。
 
 （我在网上查找过有关Octorpress的一些材料，据说在windows下还有许许多多的问题，不过目前我还没有碰到其他比较恶心的毛病，如果有的话，到时候继续想办法搞定吧）
