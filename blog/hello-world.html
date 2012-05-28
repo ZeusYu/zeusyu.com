@@ -110,13 +110,19 @@ html,body{height:100%;overflow:hidden}
 
 <p>在.rvmrc文件中修改了ruby版本</p>
 
-<p>rvm use 1.9.2</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm use 1.9.2</span></code></pre></td></tr></table></div></figure>
+
 
 <p>在Rakefile中换回了markdown</p>
 
-<p>new_post_ext = &#8220;markdown&#8221;<br/>
-new_page_ext = &#8220;markdown&#8221;<br/>
-（咦，怎么有种绕弯子的感觉……）</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>new_post_ext = "markdown"
+</span><span class='line'>new_page_ext = "markdown"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（咦，怎么有种绕弯子的感觉……）</p>
 
 <p>安装、部署博客还是比较简单的，无非是先用git把神仙同学的代码迁到本地，修修改改之后放到github上，绑个域名就OK了。这方面，<a href="http://mrzhang.me/blog/blog-equals-github-plus-octopress.html">wǒ_is神仙的博客</a> 上已经有比较详细的介绍了，这里我也不再摘抄了。<br/>
 但是-作为一个老土的windows用户，在本地运行博客的过程中我还是遇到了不少的问题。</p>
@@ -125,12 +131,17 @@ new_page_ext = &#8220;markdown&#8221;<br/>
 <li><p><code>bundle install</code> 失败<br/>
 这里的问题主要是由于我对Octorpress的不了解造成的因为Octorpess有一个gem是需要从github上迁下来的，而我本地没有相关的工具支持。通过在本地安装配置git客户端，这个问题得到了解决</p></li>
 <li><p><code>rake new_post</code>后<code>rake generate</code> 失败<br/>
-这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加<br/>
-LANG=zh_CN.UTF-8<br/>
-LC=zh_CN.UTF-8<br/>
-再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。</p></li>
+这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加</p></li>
 </ol>
 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LANG=zh_CN.UTF-8
+</span><span class='line'>LC=zh_CN.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。</p>
 
 <p>（我在网上查找过有关Octorpress的一些材料，据说在windows下还有许许多多的问题，不过目前我还没有碰到其他比较恶心的毛病，如果有的话，到时候继续想办法搞定吧）
 好了，新博客搭好了，我也算迈入“黑客”的行列了吧，嗯，要开始认真地写些东西了。</p>

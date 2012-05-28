@@ -14,6 +14,69 @@
 
   
   <entry>
+    <title type="html"><![CDATA[使用ruby批量制作二维码]]></title>
+    <link href="http://ZeusYu.github.com/zeusyu/blog/creat-qrcode-by-ruby.html"/>
+    <updated>2012-05-28T20:59:00+08:00</updated>
+    <id>http://ZeusYu.github.com/zeusyu/blog/creat-qrcode-by-ruby</id>
+    <content type="html"><![CDATA[<p>随着移动互联网和智能手机的迅猛发展，<a href="http://en.wikipedia.org/wiki/QRcode">QRCode</a>作为一种常见的二维码，也越来越多得被应用于各个场所。最近，公司这边有个业务需要用到大量的QRcode，对于这个简单的应用，也没必要麻烦开发人员，直接搞起~</p>
+
+<p>制作QRcode其实说起来也容易，本质上就是将一些文本，按照约定好的格式，编码成图形（比如最近大热的二维码名片，其实就是用<a href="http://en.wikipedia.org/wiki/Vcard">vCard</a>的格式将个人信息编码），在与实际应用二维码的具体程序开发人员约定好内容格式（就是一个字符串，用逗号分隔不同信息）后就可以开始二维码的制作了。</p>
+
+<!--more-->
+
+
+<p>制作二维码有很多种方法：</p>
+
+<ol>
+<li><p>使用网上多如牛毛的在线工具</p></li>
+<li><p>使用网上下载到的本地工具</p></li>
+<li><p>调用谷歌的<a href="https://developers.google.com/chart/infographics/">在线api</a></p></li>
+</ol>
+
+
+<p>但这几种方法都有各自的不足。</p>
+
+<ol>
+<li><p>在线工具大多都应用于更简单的场景，用于制作少量二维码，方便在于内置了多种约定好的格式，但对于批量生产缺乏支持</p></li>
+<li><p>找来找去，能下载到的批量生产工具基本上都是一个软件，虽然能生成二维码，但是由于设置极为坑爹，导致生成的图片一来尺寸过小，而来还存在中文乱码的情况，因此也只能放弃。</p></li>
+<li><p>调用谷歌的在线api看上去是个不错的选择，只要写两句简单的函数调用，就能达到批量生成二维码的目的，可惜托方校长的福，程序需要挂个vpn或者代理才能稳定工作，这显然不够方便。</p></li>
+</ol>
+
+
+<p>所以，我们选择了第4种方案，上<a href="rubygems.org">rubygems.org</a>找现成的gem包（别怪我懒，代码盲真心看不懂QRcode的编码算法），哇，万能的ruby社区提供了许多相关的gem包，有生成QRcode的<a href="http://rubygems.org/gems/rqrcode">rqrcode</a>，更有直接将生成的QRcode转存成png图片的<a href="http://rubygems.org/gems/rqrcode_png">rqrcode_png</a>，万事具备，开始。
+首先，先把需要转成QRcode的用户信息保存在123.csv文件中，一行一个用户，各个信息间用“,”分隔。</p>
+
+<pre class='sh_ruby'><code>require 'rubygems'
+</code><code>require 'url_safe_base64' #用于加密手机号码，避免直接通过扫描二维码获得导致的用户个人信息泄露
+</code><code>require 'rqrcode_png'
+</code><code>names = []
+</code><code>mobiles = []
+</code><code>hospital = []
+</code><code>major = []
+</code><code>zc = []
+</code><code>File.readlines('123.csv').each do |line| #逐行读入用户信息
+</code><code>  a = line.split(',')
+</code><code>  xm.push(a[0])
+</code><code>  yy.push(a[1])
+</code><code>  ks.push(a[2])
+</code><code>  zc.push(a[3])
+</code><code>  dh.push(a[4]) #将不同类型的用户数据压入数组的不同位置
+</code><code>end
+</code><code>
+</code><code>dh.each_with_index do|v,k|
+</code><code>  qr = RQRCode::QRCode.new(&quot;#{xm[k]},#{yy[k]},#{ks[k]},#{zc[k]},&quot;+Base64.encode64(v),:size =&gt; 5,:level =&gt; :l) #size、level是QRcode的配置，根据需求可做调整（level：l,m,q,h;size&lt;=14）
+</code><code>  png = qr.to_img #生成图片
+</code><code>  png.resize(320,320).save(&quot;/Users/maclion/Desktop/QRcode/#{xm[k]}.png&quot;) #保存图片
+</code><code>end</code></pre>
+
+
+<p>运行一下，就在桌面QRcode目录下生成了一大对二维码图片。</p>
+
+<p>当然，事情永远不会那么简单，以上代码在ruby1.9.3下报错，说是文件编码有问题，但是换了ruby1.8.7环境却跑通了，这点说啥我也想不通，留作以后再考虑吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[4月21日的50公里大暴走]]></title>
     <link href="http://ZeusYu.github.com/zeusyu/blog/baozou.html"/>
     <updated>2012-04-23T20:59:00+08:00</updated>
@@ -140,13 +203,19 @@
 
 <p>在.rvmrc文件中修改了ruby版本</p>
 
-<p>rvm use 1.9.2</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm use 1.9.2</span></code></pre></td></tr></table></div></figure>
+
 
 <p>在Rakefile中换回了markdown</p>
 
-<p>new_post_ext = &#8220;markdown&#8221;<br/>
-new_page_ext = &#8220;markdown&#8221;<br/>
-（咦，怎么有种绕弯子的感觉……）</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>new_post_ext = "markdown"
+</span><span class='line'>new_page_ext = "markdown"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>（咦，怎么有种绕弯子的感觉……）</p>
 
 <p>安装、部署博客还是比较简单的，无非是先用git把神仙同学的代码迁到本地，修修改改之后放到github上，绑个域名就OK了。这方面，<a href="http://mrzhang.me/blog/blog-equals-github-plus-octopress.html">wǒ_is神仙的博客</a> 上已经有比较详细的介绍了，这里我也不再摘抄了。<br/>
 但是-作为一个老土的windows用户，在本地运行博客的过程中我还是遇到了不少的问题。</p>
@@ -155,12 +224,17 @@ new_page_ext = &#8220;markdown&#8221;<br/>
 <li><p><code>bundle install</code> 失败<br/>
 这里的问题主要是由于我对Octorpress的不了解造成的因为Octorpess有一个gem是需要从github上迁下来的，而我本地没有相关的工具支持。通过在本地安装配置git客户端，这个问题得到了解决</p></li>
 <li><p><code>rake new_post</code>后<code>rake generate</code> 失败<br/>
-这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加<br/>
-LANG=zh_CN.UTF-8<br/>
-LC=zh_CN.UTF-8<br/>
-再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。</p></li>
+这是windows上跑Ruby的老问题了,由于我写博客的时候用了中文，编码问题又冒了出来。解决方法有两步，先设定windows的环境变量，增加</p></li>
 </ol>
 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LANG=zh_CN.UTF-8
+</span><span class='line'>LC=zh_CN.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再把生成的markdown文件存为utf8格式（UTF-8无BOM编码格式）。</p>
 
 <p>（我在网上查找过有关Octorpress的一些材料，据说在windows下还有许许多多的问题，不过目前我还没有碰到其他比较恶心的毛病，如果有的话，到时候继续想办法搞定吧）
 好了，新博客搭好了，我也算迈入“黑客”的行列了吧，嗯，要开始认真地写些东西了。</p>
