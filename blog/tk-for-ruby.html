@@ -3,9 +3,9 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Blog Archives - ZeusYu的秘密基地</title>
+  <title>用ruby/tk玩桌面程序 - ZeusYu的秘密基地</title>
   
-  <meta name="description" content="Blog Archives 2012 用ruby/tk玩桌面程序 2012-08-22 Wed Tags: ruby, tk, ocra, 桌面应用 使用ruby批量制作二维码 2012-05-28 Mon Tags: ruby, QRCode, 实用小脚本 4月21日的50公里大暴走 2012 &hellip;" />
+  <meta name="description" content="用ruby/tk玩桌面程序 2012-08-22 Wed Tags: ruby, tk, ocra, 桌面应用 最近写了一些ruby脚本，完成一些小功能，觉得颇为上瘾。不过，运行的时候老要在命令行终端里输入各种参数，用起来不是很方便，还是觉得有个桌面程序比较方便，于是我就想着怎么改造已有的脚本， &hellip;" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/stylesheets/screen.css" />
   <link rel="alternate" href="/atom.xml" type="application/atom+xml" />
@@ -38,24 +38,16 @@ html,body{height:100%;overflow:hidden}
 <header class="my-nickname"><em title="做测试出身，热爱互联网，什么都想学一点，身边一群前端后台好基友……">ZeusYu</em></header>
 
 <section class="main-wrap clearfix">
-
-
-  
-  <header>
-    <h1 class="page-title">Blog Archives</h1>
+  <article role="article">
     
-  </header>
+
+<header>
   
-  <dl class="archives">
+    <h1 class="entry-title">用ruby/tk玩桌面程序</h1>
   
   
-  
-    
-    <dt>2012</dt>
-  
-  <dd><h1 class="entry-title"><a href="/blog/tk-for-ruby.html">用ruby/tk玩桌面程序</a></h1>
-<p class="meta">
-  
+    <p class="meta">
+      
 
 
 
@@ -68,7 +60,7 @@ html,body{height:100%;overflow:hidden}
 
 
 <time datetime="2012-08-22T21:57:00+08:00" pubdate="pubdate" data-updated="true">2012-08-22 Wed</time>
-  
+      
 
 <span class="tags">
   Tags:
@@ -77,158 +69,134 @@ html,body{height:100%;overflow:hidden}
   
 </span>
 
-</p>
-</dd>
+      <span class="share-to-weibo">
+        <a href="javascript:void(0)" onclick="window.open('http://service.weibo.com/share/share.php?appkey=3967567749&amp;ralateUid=1807623870&amp;title=用ruby/tk玩桌面程序 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/tk-for-ruby.html', null, 'width=615,height=505,toolbar=0,status=0')" class="sina-weibo" title="分享到新浪微博"></a>
+
+        <a href="javascript:void(0)" onclick="window.open('http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;appkey=&amp;title=用ruby/tk玩桌面程序 - &amp;url=http://ZeusYu.github.com/zeusyu/blog/tk-for-ruby.html', null, 'width=700,height=680,toolbar=0,status=0')" class="tencent-weibo" title="分享到腾讯微博"></a>
+
+        <a href="javascript:void(0)" onclick="window.open('https://twitter.com/intent/tweet?text=用ruby/tk玩桌面程序 - http://ZeusYu.github.com/zeusyu/blog/tk-for-ruby.html', null, 'width=600,height=300,toolbar=0,status=0')" class="twitter" title="分享到Twitter"></a>
+      </span>
+    </p>
   
-  
-  
-  <dd><h1 class="entry-title"><a href="/blog/creat-qrcode-by-ruby.html">使用ruby批量制作二维码</a></h1>
-<p class="meta">
-  
+</header>
 
 
+  <div class="entry-content typo"><p>最近写了一些ruby脚本，完成一些小功能，觉得颇为上瘾。不过，运行的时候老要在命令行终端里输入各种参数，用起来不是很方便，还是觉得有个桌面程序比较方便，于是我就想着怎么改造已有的脚本，把它做成一个易用的桌面程序来玩玩。找来找去，ruby还是有不少桌面框架工具支持的，tk就是个不错的选择，简单易用。</p>
+
+<!--more-->
 
 
+<p>改造的准备工作非常简单：</p>
+
+<ol>
+<li><p>安装ruby，windows下的一键安装包非常好使，还自带了Ruby/Tk，不用再找额外的ruby扩展就能调用tk开发程序了。</p></li>
+<li><p>安装tk， <a href="http://www.activestate.com/activetcl/downloads">ActiveState</a>提供了所有常见平台上的Tcl/Tk二进制安装包，直接下载安装即可，也没什么需要设置的</p></li>
+</ol>
 
 
+<p>配置完环境，就能进行开发了，先起个基本窗口</p>
+
+<pre class='sh_ruby'><code>require 'rubygems'  
+</code><code>require 'tk'  
+</code><code>Tk = TkRoot.new{
+</code><code>   title 'Hello world'
+</code><code>}  
+</code><code>Tk.mainloop</code></pre>
 
 
-  
+<p>
+通过“TkRoot.new”构造主窗口对象，之后调用“Tk.mainloop”启动主事件循环创建整个图形界面，正常情况下，一个标题为“Hello World”的窗口就出现了。</p>
+
+<p>当然，窗口仅仅是个开始，一个可用的桌面程序，少不了各种各样的输入框、按钮，Ruby/TK提供了许多类来实现小部件，譬如TkButton,TkLabel,TkEntry等等，创建部件的时候，必须给它指定父对象，如之前创建的这个窗口</p>
+
+<pre class='sh_ruby'><code>require 'rubygems'  
+</code><code>require 'tk'  
+</code><code>Tk = TkRoot.new{
+</code><code>   title 'Hello world'
+</code><code>}  
+</code><code>TkButton.new(Tk){
+</code><code>   text '戳我！'
+</code><code>}
+</code><code>Tk.mainloop</code></pre>
 
 
-<time datetime="2012-05-28T20:59:00+08:00" pubdate="pubdate" data-updated="true">2012-05-28 Mon</time>
-  
+<p>
+以上示例就是在窗口中添加了一个按钮，其中“text &#8216;戳我！&#8217;”是替按钮设置的属性。（在这边插一句，本来，还可以通过哈希表的形式设置部件的属性，但我觉得这样比较好看，让我有种html+css的即视感）</p>
 
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/ruby/'>ruby</a>, <a href='/blog/tags/qrcode/'>QRCode</a>, <a href='/blog/tags/shi-yong-xiao-jiao-ben/'>实用小脚本</a>
-  
-</span>
+<p>好，有了按钮，我们是不是该做些什么交互操作呢，点击按钮，让按钮上的文字发生变化吧。修改按钮部件的代码块</p>
 
-</p>
-</dd>
-  
-  
-  
-  <dd><h1 class="entry-title"><a href="/blog/baozou.html">4月21日的50公里大暴走</a></h1>
-<p class="meta">
-  
+<pre class='sh_ruby'><code>button = TkButton.new(Tk){
+</code><code>   text '戳我!'
+</code><code>   command {
+</code><code>       button.text = '戳得我好爽！'
+</code><code>   }
+</code><code>}</code></pre>
 
 
+<p>
+哦也，程序动起来了。</p>
+
+<p>当然，Ruby/Tk有另外的绑定事件的方式，
+<code>button.bind('Enter'){button.text = '鼠标进来了'}</code><br/>
+这种方式更灵活，也更体现“放置一个部件，绑上一些动作”这样的理念。</p>
+
+<p>一个程序，不肯只有一个按钮，部件一多，必然涉及到布局问题，tk有三种布局方式</p>
+
+<ol>
+<li>place方式绝对定位。<code>place('height'=&gt;50,'width'=&gt; '100','x'=&gt;20,'y'=&gt;40)</code></li>
+<li>grid方式表格定位。<code>grid(row'=&gt;1,'column'=&gt; 1)</code></li>
+<li>pack填空方式。<code>pack('side'=&gt;'top','fill'=&gt;'both')</code></li>
+</ol>
 
 
+<p>其中pack填空方式比较灵活。按照顺序执行程序创建部件时，会根据pack的参数，把部件填入窗口中的剩余空白。具体可参考这个图</p>
+
+<pre class='sh_ruby'><code>require 'tk'
+</code><code>
+</code><code>title_text=&quot;pack 方式示例程序&quot;
+</code><code>root=TkRoot.new{title title_text}
+</code><code>
+</code><code>TkButton.new(root, 'text'=&gt;'按钮1').pack('side'=&gt;'top','fill'=&gt;'both')
+</code><code>TkButton.new(root, 'text'=&gt;'按钮2').pack('side'=&gt;'left','fill'=&gt;'both')
+</code><code>TkButton.new(root, 'text'=&gt;'按钮3').pack('side'=&gt;'bottom','fill'=&gt;'both')
+</code><code>TkButton.new(root, 'text'=&gt;'按钮4').pack('side'=&gt;'right','fill'=&gt;'both')
+</code><code>TkButton.new(root, 'text'=&gt;'按钮5').pack('side'=&gt;'top','fill'=&gt;'both')
+</code><code>
+</code><code>Tk.mainloop
+</code><code>}</code></pre>
 
 
+<p>
+<img src="http://www.ibm.com/developerworks/cn/opensource/os-cn-rubytk/packer.jpg" alt="tk pack布局" /><br/>
+实际操作的时候pack方法与frame部件配合使用，效果更佳。</p>
+
+<p>关于Ruby/Tk的可用的部件及其具体属性，<a href="http://www.tutorialspoint.com/ruby/ruby_tk_guide.htm">Ruby/Tk Guide</a>上有着更为详细的说明。</p>
+
+<p>在具体操作中，需要注意的是，Tk提供一个特殊TkVariable.new方法来创建变量，在不同部件间传递信息，这对减少全局变量的使用非常有帮助。</p>
+
+<p>程序写完了，我突然发现一个问题，这用ruby写的东西怎么分发呢？用户那边可没有ruby环境啊，对于一般windows用户而言，我们还得增加一个环节，生成exe文件。由于一般情况下没什么人用ruby写可执行文件，这方面的东西比较少，但幸运的是，我们找到了ocra（One-Click Ruby Application）。</p>
+
+<p>作为一个ruby2exe的工具，它安装起来非常简单<code>gem install ocra</code>即可。</p>
+
+<p>安装完成之后，在终端中执行以下命令，完成打包工作<br/>
+<code>ocra [ruby/tk path] --add-all-core --windows --no-autoload --gem-full  [rb file]</code><br/>
+关于ocra，<a href="http://ocra.rubyforge.org/">这里</a>有更详细的介绍。</p>
+
+<p>最后是我的两个渣程序，再难看也还是摆出来吧。<br/>
+<a href="https://github.com/ZeusYu/QRCode-Mass-Producters">https://github.com/ZeusYu/QRCode-Mass-Producters</a><br/>
+<a href="https://github.com/ZeusYu/eDoc_OpenCourse_Generator">https://github.com/ZeusYu/eDoc_OpenCourse_Generator</a></p>
+</div>
 
 
-  
-
-
-<time datetime="2012-04-23T20:59:00+08:00" pubdate="pubdate" data-updated="true">2012-04-23 Mon</time>
-  
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/bao-zou/'>暴走</a>, <a href='/blog/tags/sheng-huo/'>生活</a>
-  
-</span>
-
-</p>
-</dd>
-  
-  
-  
-  <dd><h1 class="entry-title"><a href="/blog/change-computer.html">Mac下ruby环境搭建</a></h1>
-<p class="meta">
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-18T21:47:00+08:00" pubdate="pubdate" data-updated="true">2012-04-18 Wed</time>
-  
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/mac/'>mac</a>, <a href='/blog/tags/ruby/'>ruby</a>, <a href='/blog/tags/rvm/'>rvm</a>
-  
-</span>
-
-</p>
-</dd>
-  
-  
-  
-  <dd><h1 class="entry-title"><a href="/blog/little-change.html">小修改</a></h1>
-<p class="meta">
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-22T22:29:00+08:00" pubdate="pubdate" data-updated="true">2012-03-22 Thu</time>
-  
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/octpress/'>octpress</a>, <a href='/blog/tags/blog/'>blog</a>
-  
-</span>
-
-</p>
-</dd>
-  
-  
-  
-  <dd><h1 class="entry-title"><a href="/blog/hello-world.html">像黑客一样写博客</a></h1>
-<p class="meta">
-  
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-20T21:00:00+08:00" pubdate="pubdate" data-updated="true">2012-03-20 Tue</time>
-  
-
-<span class="tags">
-  Tags:
-  
-    <a href='/blog/tags/github/'>GitHub</a>, <a href='/blog/tags/octopress/'>Octopress</a>
-  
-</span>
-
-</p>
-</dd>
-  
-</dl>
-
-
-
+    <footer>
+      <p class="meta neighbor clearfix">
+        
+          <a href="/blog/creat-qrcode-by-ruby.html" class="float-l" title="Previous Post: 使用ruby批量制作二维码">&laquo; 使用ruby批量制作二维码</a>
+        
+        
+      </p>
+    </footer>
+  </article>
   
   
   <!-- Duoshuo Comment BEGIN -->
