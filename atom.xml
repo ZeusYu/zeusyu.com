@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[部署Gitlab小记]]></title>
+    <title type="html"><![CDATA[部署GitLab小记]]></title>
     <link href="http://ZeusYu.github.com/zeusyu/blog/deploy-gitlab.html"/>
     <updated>2013-09-09T20:10:00+08:00</updated>
     <id>http://ZeusYu.github.com/zeusyu/blog/deploy-gitlab</id>
@@ -207,7 +207,7 @@
 </code><code>sudo -u git -H bundle install --deployment --without development test mysql aws</code></pre>
 
 
-<p>这里我遇到一个问题，说是bundle不是个命令，略奇怪，不过通过重新安装bundle算是解决了</p>
+<p>这里我遇到一个问题，说是bundle不是个命令，略奇怪，不过通过重新安装bundle这个问题算是解决了。</p>
 
 <h2>初始化数据库</h2>
 
