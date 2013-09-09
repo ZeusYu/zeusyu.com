@@ -152,16 +152,13 @@ html,body{height:100%;overflow:hidden}
 <p>其中pack填空方式比较灵活。按照顺序执行程序创建部件时，会根据pack的参数，把部件填入窗口中的剩余空白。具体可参考这个图</p>
 
 <pre class='sh_ruby'><code>require 'tk'
-</code><code>
 </code><code>title_text=&quot;pack 方式示例程序&quot;
 </code><code>root=TkRoot.new{title title_text}
-</code><code>
 </code><code>TkButton.new(root, 'text'=&gt;'按钮1').pack('side'=&gt;'top','fill'=&gt;'both')
 </code><code>TkButton.new(root, 'text'=&gt;'按钮2').pack('side'=&gt;'left','fill'=&gt;'both')
 </code><code>TkButton.new(root, 'text'=&gt;'按钮3').pack('side'=&gt;'bottom','fill'=&gt;'both')
 </code><code>TkButton.new(root, 'text'=&gt;'按钮4').pack('side'=&gt;'right','fill'=&gt;'both')
 </code><code>TkButton.new(root, 'text'=&gt;'按钮5').pack('side'=&gt;'top','fill'=&gt;'both')
-</code><code>
 </code><code>Tk.mainloop
 </code><code>}</code></pre>
 
@@ -176,9 +173,8 @@ html,body{height:100%;overflow:hidden}
 
 <p>程序写完了，我突然发现一个问题，这用ruby写的东西怎么分发呢？用户那边可没有ruby环境啊，对于一般windows用户而言，我们还得增加一个环节，生成exe文件。由于一般情况下没什么人用ruby写可执行文件，这方面的东西比较少，但幸运的是，我们找到了ocra（One-Click Ruby Application）。</p>
 
-<p>作为一个ruby2exe的工具，它安装起来非常简单<code>gem install ocra</code>即可。</p>
-
-<p>安装完成之后，在终端中执行以下命令，完成打包工作<br/>
+<p>作为一个ruby2exe的工具，它安装起来非常简单<code>gem install ocra</code>即可。<br/>
+安装完成之后，在终端中执行以下命令，完成打包工作<br/>
 <code>ocra [ruby/tk path] --add-all-core --windows --no-autoload --gem-full  [rb file]</code><br/>
 关于ocra，<a href="http://ocra.rubyforge.org/">这里</a>有更详细的介绍。</p>
 
@@ -193,6 +189,8 @@ html,body{height:100%;overflow:hidden}
         
           <a href="/blog/creat-qrcode-by-ruby.html" class="float-l" title="Previous Post: 使用ruby批量制作二维码">&laquo; 使用ruby批量制作二维码</a>
         
+        
+          <a href="/blog/deploy-gitlab.html" class="float-r" title="Next Post: 部署Gitlab小记">部署Gitlab小记 &raquo;</a>
         
       </p>
     </footer>
