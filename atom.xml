@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[ZeusYu的秘密基地]]></title>
-  <link href="http://ZeusYu.github.com/zeusyu/atom.xml" rel="self"/>
-  <link href="http://ZeusYu.github.com/zeusyu/"/>
+  <link href="http://ZeusYu.com/atom.xml" rel="self"/>
+  <link href="http://ZeusYu.com/"/>
   <updated>2012-01-20T00:00:00+08:00</updated>
-  <id>http://ZeusYu.github.com/zeusyu/</id>
+  <id>http://ZeusYu.com/</id>
   <author>
     <name><![CDATA[ZeusYu]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[部署GitLab小记]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/deploy-gitlab.html"/>
+    <link href="http://ZeusYu.com/blog/deploy-gitlab.html"/>
     <updated>2013-09-09T20:10:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/deploy-gitlab</id>
+    <id>http://ZeusYu.com/blog/deploy-gitlab</id>
     <content type="html"><![CDATA[<p>上个月看到GitLab6.0稳定版发布了，手痒，简单搭个玩玩，照着文档一步步坐下来，稍微遇到点问题，记录一下，以后备查。</p>
 
 <!--more-->
@@ -259,9 +259,9 @@
   
   <entry>
     <title type="html"><![CDATA[用ruby/tk玩桌面程序]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/tk-for-ruby.html"/>
+    <link href="http://ZeusYu.com/blog/tk-for-ruby.html"/>
     <updated>2012-08-22T21:57:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/tk-for-ruby</id>
+    <id>http://ZeusYu.com/blog/tk-for-ruby</id>
     <content type="html"><![CDATA[<p>最近写了一些ruby脚本，完成一些小功能，觉得颇为上瘾。不过，运行的时候老要在命令行终端里输入各种参数，用起来不是很方便，还是觉得有个桌面程序比较方便，于是我就想着怎么改造已有的脚本，把它做成一个易用的桌面程序来玩玩。找来找去，ruby还是有不少桌面框架工具支持的，tk就是个不错的选择，简单易用。</p>
 
 <!--more-->
@@ -367,9 +367,9 @@
   
   <entry>
     <title type="html"><![CDATA[使用ruby批量制作二维码]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/creat-qrcode-by-ruby.html"/>
+    <link href="http://ZeusYu.com/blog/creat-qrcode-by-ruby.html"/>
     <updated>2012-05-28T20:59:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/creat-qrcode-by-ruby</id>
+    <id>http://ZeusYu.com/blog/creat-qrcode-by-ruby</id>
     <content type="html"><![CDATA[<p>随着移动互联网和智能手机的迅猛发展，<a href="http://en.wikipedia.org/wiki/QRcode">QRCode</a>作为一种常见的二维码，也越来越多得被应用于各个场所。最近，公司这边有个业务需要用到大量的QRcode，对于这个简单的应用，也没必要麻烦开发人员，直接搞起~</p>
 
 <p>制作QRcode其实说起来也容易，本质上就是将一些文本，按照约定好的格式，编码成图形（比如最近大热的二维码名片，其实就是用<a href="http://en.wikipedia.org/wiki/Vcard">vCard</a>的格式将个人信息编码），在与实际应用二维码的具体程序开发人员约定好内容格式（就是一个字符串，用逗号分隔不同信息）后就可以开始二维码的制作了。</p>
@@ -430,9 +430,9 @@
   
   <entry>
     <title type="html"><![CDATA[4月21日的50公里大暴走]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/baozou.html"/>
+    <link href="http://ZeusYu.com/blog/baozou.html"/>
     <updated>2012-04-23T20:59:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/baozou</id>
+    <id>http://ZeusYu.com/blog/baozou</id>
     <content type="html"><![CDATA[<p>去年从同事那边得知有这个活动的存在，于是便在今年组队参与了本次活动。之前曾经走过一次5公里大概在45分钟到一小时左右，所以觉得走完这50公里大概是个不可能完成的任务，但春夏之际，和同事一道外出走走，看看风景、看看妹子倒也是件美事。<br/>
 活动要求我们早上6点在城市规划馆东面集合，用大巴把参加活动这2000多号人运到起点朱家角。<br/>
 <img src="http://www.hi-pda.com/forum/attachments/day_120422/1204221651494609d8944a5756.jpg" alt="" /><br/>
@@ -452,9 +452,9 @@
   
   <entry>
     <title type="html"><![CDATA[mac下ruby环境搭建]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/change-computer.html"/>
+    <link href="http://ZeusYu.com/blog/change-computer.html"/>
     <updated>2012-04-18T21:47:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/change-computer</id>
+    <id>http://ZeusYu.com/blog/change-computer</id>
     <content type="html"><![CDATA[<p>前一阵子换了新电脑，一直在忙其他的事情，再加上贪玩打了一遍《质量效应3》，把程序方面的学习给落下了。这会儿稍稍空点了，还是继续上路吧。
 换了电脑以后，之前熟悉的windows不见了，遇上了据说很方便的mac，什么都得重头搞起，第一件事就是架环境。听说用rvm安装ruby很方便，于是搜了个教程跟着做。</p>
 
@@ -501,9 +501,9 @@
   
   <entry>
     <title type="html"><![CDATA[小修改]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/little-change.html"/>
+    <link href="http://ZeusYu.com/blog/little-change.html"/>
     <updated>2012-03-22T22:29:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/little-change</id>
+    <id>http://ZeusYu.com/blog/little-change</id>
     <content type="html"><![CDATA[<p>这两天趁着新鲜劲，对博客做了些小小的改动。</p>
 
 <ol>
@@ -523,9 +523,9 @@
   
   <entry>
     <title type="html"><![CDATA[像黑客一样写博客]]></title>
-    <link href="http://ZeusYu.github.com/zeusyu/blog/hello-world.html"/>
+    <link href="http://ZeusYu.com/blog/hello-world.html"/>
     <updated>2012-03-20T21:00:00+08:00</updated>
-    <id>http://ZeusYu.github.com/zeusyu/blog/hello-world</id>
+    <id>http://ZeusYu.com/blog/hello-world</id>
     <content type="html"><![CDATA[<p>标题摘自网上对Octopress的评价。自从从同事那里得知了有这么一个东西的存在以后，出于对免费事物的莫名爱好和对之前自己写的乱七八糟东西的不满，一直想在GitHub上重头搭一个博客玩玩，但由于才疏学浅，完全写不来前端代码，只能看着同事的博客心痒痒。正好，前几天同事开源了他的博客主题，于是，直接拿来用，在这里，谢谢<a href="http://mrzhang.me/" title="wǒ_is神仙">wǒ_is神仙</a>童鞋。</p>
 
 <!--more-->
