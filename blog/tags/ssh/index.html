@@ -3,9 +3,9 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>部署GitLab小记 - ZeusYu的秘密基地</title>
+  <title>Tag: ssh - ZeusYu的秘密基地</title>
   
-  <meta name="description" content="部署GitLab小记 2013-09-09 Mon Tags: gitlab, git, ubuntu 上个月看到GitLab6.0稳定版发布了，手痒，简单搭个玩玩，照着文档一步步坐下来，稍微遇到点问题，记录一下，以后备查。 1.安装依赖包 sudo apt-get install -y &hellip;" />
+  <meta name="description" content="Tag: Ssh 2013 使用GitLab遇到的问题 2013-09-12 Thu Tags: gitlab, ssh, git var duoshuoQuery = {short_name: "zeusyu"}; (function() { var ds = document. &hellip;" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/stylesheets/screen.css" />
   <link rel="alternate" href="/atom.xml" type="application/atom+xml" />
@@ -38,299 +38,52 @@ html,body{height:100%;overflow:hidden}
 <header class="my-nickname"><em title="做测试出身，热爱互联网，什么都想学一点，身边一群前端后台好基友……">ZeusYu</em></header>
 
 <section class="main-wrap clearfix">
-  <article role="article">
+
+
+  
+  <header>
+    <h1 class="page-title">Tag: Ssh</h1>
     
-
-<header>
+  </header>
   
-    <h1 class="entry-title">部署GitLab小记</h1>
+  <dl class="archives">
   
   
-    <p class="meta">
-      
-
-
-
-
-
-
-
-
+  
+    
+    <dt>2013</dt>
+  
+  <dd><h1 class="entry-title"><a href="/blog/gitlab-problem.html">使用GitLab遇到的问题</a></h1>
+<p class="meta">
   
 
 
-<time datetime="2013-09-09T20:10:00+08:00" pubdate="pubdate" data-updated="true">2013-09-09 Mon</time>
-      
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T20:27:00+08:00" pubdate="pubdate" data-updated="true">2013-09-12 Thu</time>
+  
 
 <span class="tags">
   Tags:
   
-    <a href='/blog/tags/gitlab/'>gitlab</a>, <a href='/blog/tags/git/'>git</a>, <a href='/blog/tags/ubuntu/'>ubuntu</a>
+    <a href='/blog/tags/gitlab/'>gitlab</a>, <a href='/blog/tags/ssh/'>ssh</a>, <a href='/blog/tags/git/'>git</a>
   
 </span>
 
-      <span class="share-to-weibo">
-        <a href="javascript:void(0)" onclick="window.open('http://service.weibo.com/share/share.php?appkey=3967567749&amp;ralateUid=1807623870&amp;title=部署GitLab小记 - &amp;url=http://ZeusYu.com/blog/deploy-gitlab.html', null, 'width=615,height=505,toolbar=0,status=0')" class="sina-weibo" title="分享到新浪微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;appkey=&amp;title=部署GitLab小记 - &amp;url=http://ZeusYu.com/blog/deploy-gitlab.html', null, 'width=700,height=680,toolbar=0,status=0')" class="tencent-weibo" title="分享到腾讯微博"></a>
-
-        <a href="javascript:void(0)" onclick="window.open('https://twitter.com/intent/tweet?text=部署GitLab小记 - http://ZeusYu.com/blog/deploy-gitlab.html', null, 'width=600,height=300,toolbar=0,status=0')" class="twitter" title="分享到Twitter"></a>
-      </span>
-    </p>
+</p>
+</dd>
   
-</header>
+</dl>
 
 
-  <div class="entry-content typo"><p>上个月看到GitLab6.0稳定版发布了，手痒，简单搭个玩玩，照着文档一步步坐下来，稍微遇到点问题，记录一下，以后备查。</p>
 
-<!--more-->
-
-
-<p></p>
-
-<h1>1.安装依赖包</h1>
-
-<pre class='sh_shell'><code>sudo apt-get install -y build-essential zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl git-core openssh-server redis-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev</code></pre>
-
-
-<p>确保系统中的python版本正确（2.5以上，3.x以下）</p>
-
-<pre class='sh_shell'><code># 安装python
-</code><code>sudo apt-get install -y python
-</code><code>
-</code><code># 确认python版本  
-</code><code>python --version
-</code><code>
-</code><code># 若python版本不正确，重新安装正确版本的python  
-</code><code>sudo apt-get install python2.7</code></pre>
-
-
-<p>为了gitlab能够正常使用，还需要配置一个邮件服务器，官方推荐在ubuntu上使用postfix
-<code>sudo apt-get install -y postfix</code></p>
-
-<p>安装完postfix后，系统会直接要求进行配置，直接选择&#8217;Internet Site&#8217;确认就行了。</p>
-
-<h1>2.Ruby</h1>
-
-<p>系统默认的ruby版本是1.8，略低，先卸载掉吧<br/>
-<code>sudo apt-get remove -y ruby1.8</code></p>
-
-<p>下载编译最新的Ruby</p>
-
-<pre class='sh_shell'><code>mkdir /tmp/ruby &amp;&amp; cd /tmp/ruby  
-</code><code>curl --progress ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz | tar xz  
-</code><code>cd ruby-2.0.0-p247  
-</code><code>./configure  
-</code><code>make  
-</code><code>sudo make install</code></pre>
-
-
-<p>安装Bundler Gem<br/>
-<code>sudo gem install bundler --no-ri --no-rdoc</code></p>
-
-<h1>3.系统用户</h1>
-
-<p>为Gitlab创建一个系统用户<br/>
-<code>sudo adduser --disabled-login --gecos 'GitLab' git</code></p>
-
-<h1>4.安装GitLab shell</h1>
-
-<pre class='sh_shell'><code># Go to home directory
-</code><code>cd /home/git
-</code><code>
-</code><code># Clone gitlab shell
-</code><code>sudo -u git -H git clone https://github.com/gitlabhq/gitlab-shell.git
-</code><code>
-</code><code>cd gitlab-shell
-</code><code>
-</code><code># switch to right version
-</code><code>sudo -u git -H git checkout v1.7.1
-</code><code>
-</code><code>sudo -u git -H cp config.yml.example config.yml
-</code><code>
-</code><code># Edit config and replace gitlab_url
-</code><code># with something like 'http://domain.com/'
-</code><code>sudo -u git -H editor config.yml
-</code><code>
-</code><code># Do setup
-</code><code>sudo -u git -H ./bin/install</code></pre>
-
-
-<h1>5.安装数据库</h1>
-
-<p>GitLab支持MySQL和PostgreSQL，选了PostgreSQL。</p>
-
-<pre class='sh_shell'><code># Install the database packages
-</code><code>sudo apt-get install -y postgresql-9.1 libpq-dev
-</code><code>
-</code><code># Login to PostgreSQL  
-</code><code>sudo -u postgres psql -d template1
-</code><code>
-</code><code># Create a user for GitLab. (change $password to a real password)  
-</code><code>template1=# CREATE USER git WITH PASSWORD '$password';
-</code><code>
-</code><code># Create the GitLab production database &amp; grant all privileges on database  
-</code><code>template1=# CREATE DATABASE gitlabhq_production OWNER git;
-</code><code>
-</code><code># Quit the database session  
-</code><code>template1=# \q
-</code><code>
-</code><code># Try connecting to the new database with the new user
-</code><code>sudo -u git -H psql -d gitlabhq_production</code></pre>
-
-
-<h1>6.安装GitLab</h1>
-
-<p>终于开始正题了。</p>
-
-<h2>先把代码Clone下来</h2>
-
-<pre class='sh_shell'><code>#We'll install GitLab into home directory of the user &quot;git&quot;  
-</code><code>cd /home/git
-</code><code>
-</code><code># Clone GitLab repository
-</code><code>sudo -u git -H git clone https://github.com/gitlabhq/gitlabhq.git gitlab
-</code><code>
-</code><code># Go to gitlab dir
-</code><code>cd /home/git/gitlab
-</code><code>
-</code><code># Checkout to stable release
-</code><code>sudo -u git -H git checkout 6-0-stable</code></pre>
-
-
-<h2>简单配置一下</h2>
-
-<pre class='sh_shell'><code>cd /home/git/gitlab
-</code><code>
-</code><code># Copy the example GitLab config  
-</code><code>sudo -u git -H cp config/gitlab.yml.example config/gitlab.yml
-</code><code>
-</code><code># Make sure to change &quot;localhost&quot; to the fully-qualified domain name of your  
-</code><code># host serving GitLab where necessary  
-</code><code>sudo -u git -H editor config/gitlab.yml
-</code><code>
-</code><code># Make sure GitLab can write to the log/ and tmp/ directories  
-</code><code>sudo chown -R git log/  
-</code><code>sudo chown -R git tmp/  
-</code><code>sudo chmod -R u+rwX  log/  
-</code><code>sudo chmod -R u+rwX  tmp/
-</code><code>
-</code><code># Create directory for satellites
-</code><code>sudo -u git -H mkdir /home/git/gitlab-satellites
-</code><code>
-</code><code># Create directories for sockets/pids and make sure GitLab can write to them  
-</code><code>sudo -u git -H mkdir tmp/pids/  
-</code><code>sudo -u git -H mkdir tmp/sockets/  
-</code><code>sudo chmod -R u+rwX  tmp/pids/  
-</code><code>sudo chmod -R u+rwX  tmp/sockets/
-</code><code>
-</code><code># Create public/uploads directory otherwise backup will fail  
-</code><code>sudo -u git -H mkdir public/uploads  
-</code><code>sudo chmod -R u+rwX  public/uploads
-</code><code>
-</code><code># Copy the example Unicorn config  
-</code><code>sudo -u git -H cp config/unicorn.rb.example config/unicorn.rb
-</code><code>
-</code><code># Enable cluster mode if you expect to have a high load instance  
-</code><code># Ex. change amount of workers to 3 for 2GB RAM server
-</code><code>sudo -u git -H editor config/unicorn.rb
-</code><code>
-</code><code># Configure Git global settings for git user, useful when editing via web  
-</code><code># Edit user.email according to what is set in gitlab.yml
-</code><code>sudo -u git -H git config --global user.name &quot;GitLab&quot;
-</code><code>sudo -u git -H git config --global user.email &quot;gitlab@localhost&quot;
-</code><code>sudo -u git -H git config --global core.autocrlf input</code></pre>
-
-
-<h2>配置数据库</h2>
-
-<pre class='sh_shell'><code># PostgreSQL  
-</code><code>sudo -u git cp config/database.yml.postgresql config/database.yml
-</code><code>
-</code><code># Make sure to update username/password in config/database.yml.  
-</code><code># You only need to adapt the production settings (first part).  
-</code><code># If you followed the database guide then please do as follows:  
-</code><code># Change 'root' to 'gitlab'  
-</code><code># Change 'secure password' with the value you have  given to $password  
-</code><code># You can keep the double quotes around the password
-</code><code>sudo -u git -H editor config/database.yml
-</code><code>
-</code><code># Make config/database.yml readable to git only
-</code><code>sudo -u git -H chmod o-rwx config/database.yml</code></pre>
-
-
-<h2>安装Gem包</h2>
-
-<pre class='sh_shell'><code>cd /home/git/gitlab
-</code><code>
-</code><code>#把gem源改成淘宝源http://ruby.taobao.org/  
-</code><code>sudo -u git -H editer Gemfile  
-</code><code>
-</code><code>sudo gem install charlock_holmes --version '0.6.9.4'  
-</code><code>sudo -u git -H bundle install --deployment --without development test mysql aws</code></pre>
-
-
-<p>这里我遇到一个问题，说是bundle不是个命令，略奇怪，不过通过重新安装bundle这个问题算是解决了。</p>
-
-<h2>初始化数据库</h2>
-
-<p><code>sudo -u git -H bundle exec rake gitlab:setup  RAILS_ENV=production</code><br/>
-完成后会显示默认的管理员账号
-这里我犯了一个低级错误，在修改数据库配置文件时，在密码那一行的冒号后面少打了一个空格，导致键值对判断出错，执行这行命令的时候报错，⊙﹏⊙b汗</p>
-
-<h2>安装初始脚本</h2>
-
-<pre class='sh_shell'><code>sudo cp lib/support/init.d/gitlab /etc/init.d/gitlab  
-</code><code>sudo chmod +x /etc/init.d/gitlab 
-</code><code> 
-</code><code>#随系统自启动  
-</code><code>sudo update-rc.d gitlab defaults 21</code></pre>
-
-
-<h2>启动Gitlab</h2>
-
-<p><code>sudo service gitlab start</code></p>
-
-<h1>7.Nginx</h1>
-
-<p>最后配置一下服务器,官方推荐使用Nginx。</p>
-
-<h2>安装</h2>
-
-<p><code>sudo apt-get install -y nginx</code></p>
-
-<h2>站点配置</h2>
-
-<pre class='sh_shell'><code>sudo cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab  
-</code><code>sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
-</code><code>
-</code><code># Change YOUR_SERVER_FQDN to the fully-qualified  
-</code><code># domain name of your host serving GitLab.  
-</code><code>sudo editor /etc/nginx/sites-available/gitlab</code></pre>
-
-
-<p>这里由于我们只是内网访问，也没有域名可以用，就先用本机ip代替了 YOUR_SERVER_FQDN.</p>
-
-<h2>重启服务器</h2>
-
-<p><code>sudo service nginx restart</code></p>
-
-<p>这下，使用ip访问，用默认管理员登陆，这就完事了。
-其中遇到的诸如github被墙这种问题，唉，没啥好说的了。。。</p>
-</div>
-
-
-    <footer>
-      <p class="meta neighbor clearfix">
-        
-          <a href="/blog/tk-for-ruby.html" class="float-l" title="Previous Post: 用ruby/tk玩桌面程序">&laquo; 用ruby/tk玩桌面程序</a>
-        
-        
-          <a href="/blog/gitlab-problem.html" class="float-r" title="Next Post: 使用GitLab遇到的问题">使用GitLab遇到的问题 &raquo;</a>
-        
-      </p>
-    </footer>
-  </article>
   
   
   <!-- Duoshuo Comment BEGIN -->
