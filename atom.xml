@@ -14,6 +14,111 @@
 
   
   <entry>
+    <title type="html"><![CDATA[用node webkit实现一个图片批量处理工具]]></title>
+    <link href="http://ZeusYu.com/blog/node-webkit-imageeditor.html"/>
+    <updated>2014-02-06T19:57:00+08:00</updated>
+    <id>http://ZeusYu.com/blog/node-webkit-imageeditor</id>
+    <content type="html"><![CDATA[<p>过年在家无事，想起来以前一个需求，于是做来玩玩。</p>
+
+<p>需求大概是将就是要一个绿色免安装的离线程序，有一个简单的界面，主要功能就是把大量的图片（其实也就十几来张）转成800<em>600的图片保存下来，当然还得支持图片的选择（旋转后还是得拉伸成800</em>600）</p>
+
+<p>之前拿Tk和ruby实现过两个桌面程序，当时写那个界面费了老大的劲，正好之前听说了node webkit，于是就打算拿这个来玩一玩。使用这个东西最大的好处我觉得就是写界面非常简单，html+css对我这种初学者来讲简直就是福音啊。</p>
+
+<p>说干就干，这个玩意儿的功能主要可以分为三部分，读取图片，处理图片，保存图片。</p>
+
+<!--more-->
+
+
+<p></p>
+
+<h4>读取图片</h4>
+
+<p>最开始，我想到的就是简单用个啥接口读取一下文件，我找了一下html5里头有个叫FileReader的东西。</p>
+
+<p>首先现在网页文件里写上一个input标签，id就叫add-img吧，然后在js里写</p>
+
+<pre class='sh_javascript'><code>$.each($.('#add-img')[0].files,function(i,file){
+</code><code>  var reader = new FileReader()
+</code><code>  rader.readAsDateURL(file)
+</code><code>  reader.onload=function(e){
+</code><code>    //这里配合页面写上展示图片的代码，获取的文件在e.result里
+</code><code>  }
+</code><code>})</code></pre>
+
+
+<p>当input标签有值的时候一执行，就行了。乍一看似乎ok，图片可以显示，功能算是完成了，但是这就有一个问题，读取到的图片文件格式是base64的字符，要进一步对图片进行缩放、旋转好像有些麻烦，考虑再三后只能放弃。。。</p>
+
+<p>这下怎么办呢，于是，我求助于node，在js代码中，我加载了path模块<code>var path=require('path')</code>
+然后修改js代码：</p>
+
+<pre class='sh_javascript'><code>$.each($.('#add-img')[0].files,function(i,file){
+</code><code>    //之前展示展示图片的代码，将e.result修改为file.path
+</code><code>})</code></pre>
+
+
+<p>这样我就能靠图片的路径然后进行下一步操作了</p>
+
+<h4>处理图片</h4>
+
+<p>对于图片处理，node有很多种方法，比较正常的是采用在计算机上搞个ImageMagic，然后使用对应的模块来调用，但这并不符合我绿色软件的要求，所以，我才用了canvas。</p>
+
+<p>我的要求是在操作界面中展示160<em>180的缩略图，让用户来操作，最后输出800</em>600的图片，canvas可以实现图片的缩放和旋转，但最终输出的图片和canvas显示的一致，为了达到显示和输出的不同，我采用了一种比较猥琐的方法，放两个canvas，显示小的，输出大的，大的那个用<code>display：none</code> 隐藏掉。（想想我都觉得应该有更好的方法）</p>
+
+<p>关于图片的缩放很简单：</p>
+
+<pre class='sh_javascript'><code>var ctx = $('.canvas')[imgCount].getContext('2d')//选中那个canvas标签，采用2d模式
+</code><code>var ctx1 = $('.Nonecanvas')[imgCount].getContext('2d')
+</code><code>var img = new Image()
+</code><code>img.onload=function(){
+</code><code>  ctx.drawImage(img,0,0,160,128)
+</code><code>  ctx1.drawImage(img,0,0,800,600)
+</code><code>}
+</code><code>img.src=file.path</code></pre>
+
+
+<p>旋转啥的稍微麻烦一点，额外用的一个方法<code>ctx.rotate(degree)</code>。值得注意的是，这个方法旋转的不是图片，而是画布，旋转的中心为左上角。由于我们需要的是图片中心旋转，所以还需要采用<code>ctx.translate(x,y)</code>修改中心点。应为修改中心点这个动作中用到的参数是相对值，所以每次修改前后必须用<code>ctx.save()</code>、<code>ctx.restore()</code>使中心点复位，方便下次定位。</p>
+
+<p>整个旋转操作最烦的部分在于根据旋转角度不同，每次的旋转中心变化不一定一样，需要逐个计算，这里我虽然糊里糊涂地搞定了，但还需要再研究研究。（代码就不贴出来了，丢人）</p>
+
+<p>另外还需要注意一下，canvas的图片旋转其实上是把新的图片写进去，并没有自动清除之前的内容，若要求旋转前后图片尺寸不一，还需要额外进行一步操作，把老图片擦除。由于我的程序里图片旋转后依旧是800*600，新图片会遮挡住旧图片，所以可以无视这一点。</p>
+
+<h4>处理图片</h4>
+
+<p>这个相对来说最简单，先在界面上写一个input标签，node webkit提供了一个nwdirectory的属性，加上它之后，点击这个input后可以选择文件夹，获取这个文件夹的地址。之后在js里加载fs模块<code>var fs=require('fs')</code>,遍历所有图片后保存文件即可。</p>
+
+<pre class='sh_javascript'><code>saveImage=function(){
+</code><code>  var savePath=$('#save-img')[0].files[0].path
+</code><code>  $.each($('.noneCanvas'),function(i,file){
+</code><code>    var img=file.toDataURL().substring(22)//将canvas里的图片转换为base64格式，去掉开头的文件标示
+</code><code>    var dataBuffer = new Buffer(img,'base64')
+</code><code>    fs.writeFile(savePath +'/'+ i +'.jpg',dataBuffer,function(err){
+</code><code>      if(err){
+</code><code>        console.log(err)
+</code><code>      }else{
+</code><code>        console.log('succeed!')
+</code><code>      }
+</code><code>    })
+</code><code>  })
+</code><code>}</code></pre>
+
+
+<p>全部完成以后，就可以按照node webkit的说明<a href="https://github.com/rogerwang/node-webkit/wiki/Manifest-format">编写package.json进行配置</a>，进而<a href="https://github.com/rogerwang/node-webkit/wiki/How-to-package-and-distribute-your-apps">打包可执行文件</a>。</p>
+
+<p>具体代码在<a href="https://github.com/ZeusYu/image-resizer-demo">这里</a></p>
+
+<p>P.S</p>
+
+<ol>
+<li>完成后才发现，由于采用的是canvas的图片缩放，未使用任何压缩算法，裁出来的图片尺寸略大，达不到所要求的目标。。。。</li>
+<li>使用node webkit打包的可执行文件，需要包个chromium在里面，这个和tk+ruby的毛病一样，可执行程序略大。。。</li>
+<li>再吐槽一下我自己的代码，运行效率低下，在一次性读入大量图片的情况下，会出现各种各样诡异的问题。。。</li>
+<li>最后我打算研究一下拖拽上传文件，看看怎么来实现</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[使用GitLab遇到的问题]]></title>
     <link href="http://ZeusYu.com/blog/gitlab-problem.html"/>
     <updated>2013-09-12T20:27:00+08:00</updated>
@@ -36,7 +141,8 @@
 <p>可奇怪的是，当时配置gitlab shell的时候，这个操作明明已经执行了呀。
 之后一顿胡改，反复确认gitlab-shell下的配置文件中的url，各个文件的权限等等，就是解决不了。</p>
 
-<p>最后，绝望中，我重启了ssh服务，结果。。。居然解决了问题，这有必然联系吗？</p>
+<p>最后，绝望中，我重启了ssh服务，结果。。。居然解决了问题，这有必然联系吗？
+P.S 之后才发现，我在那一通胡乱操作中，重新生成了SSH public keys，重新生成的时候，我没有选择文件生成的位置，他默认落在了.ssh文件夹下，注册才是解决问题的最终原因。</p>
 
 <h2>问题二：push时通过了用户验证，但提示找不到git仓库</h2>
 

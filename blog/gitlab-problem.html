@@ -99,7 +99,8 @@ html,body{height:100%;overflow:hidden}
 <p>可奇怪的是，当时配置gitlab shell的时候，这个操作明明已经执行了呀。
 之后一顿胡改，反复确认gitlab-shell下的配置文件中的url，各个文件的权限等等，就是解决不了。</p>
 
-<p>最后，绝望中，我重启了ssh服务，结果。。。居然解决了问题，这有必然联系吗？</p>
+<p>最后，绝望中，我重启了ssh服务，结果。。。居然解决了问题，这有必然联系吗？
+P.S 之后才发现，我在那一通胡乱操作中，重新生成了SSH public keys，重新生成的时候，我没有选择文件生成的位置，他默认落在了.ssh文件夹下，注册才是解决问题的最终原因。</p>
 
 <h2>问题二：push时通过了用户验证，但提示找不到git仓库</h2>
 
@@ -129,6 +130,8 @@ html,body{height:100%;overflow:hidden}
         
           <a href="/blog/deploy-gitlab.html" class="float-l" title="Previous Post: 部署GitLab小记">&laquo; 部署GitLab小记</a>
         
+        
+          <a href="/blog/node-webkit-imageeditor.html" class="float-r" title="Next Post: 用node webkit实现一个图片批量处理工具">用node webkit实现一个图片批量处理工具 &raquo;</a>
         
       </p>
     </footer>
